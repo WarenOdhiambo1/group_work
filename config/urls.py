@@ -31,6 +31,8 @@ urlpatterns = [
     path('dashboard/', include('analytics.urls')),
     path('make-admin/', create_admin),
     
-    # THE NEW HOMEPAGE
-    path('', home, name='home'), # <--- Use the view, NOT the RedirectView
+    # ADD THIS LINE to connect the Operations app
+    path('operations/', include('operations.urls')),
+    
+    path('', home, name='home'),
 ]

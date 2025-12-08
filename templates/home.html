@@ -8,7 +8,7 @@
         <p>Guided Tours & Water Sports Rentals in Jacksonville</p>
         <div class="btn-group">
             <a href="#gallery" class="btn btn-transparent">View Gallery</a>
-            <a href="/dashboard/" class="btn btn-solid">Manager Portal</a>
+            <a href="/operations/book/" class="btn btn-solid">Book Now</a>
         </div>
     </div>
 </div>
@@ -19,12 +19,12 @@
         <div class="card">
             <h3>🛶 Rentals</h3>
             <p>Rent high-quality kayaks and paddleboards.</p>
-            <a href="#" class="text-link">Book Equipment &rarr;</a>
+            <a href="/operations/book/" class="text-link">Book Equipment &rarr;</a>
         </div>
         <div class="card">
             <h3>🌲 Guided Tours</h3>
             <p>Join Shawn & Harry for an exclusive river tour.</p>
-            <a href="#" class="text-link">See Schedule &rarr;</a>
+            <a href="/operations/book/" class="text-link">See Schedule &rarr;</a>
         </div>
         <div class="card">
             <h3>📊 Analytics</h3>
@@ -38,21 +38,67 @@
     <div class="container">
         <h2 class="section-title">Adventure Gallery</h2>
         <div class="gallery-grid">
-            {% for activity in activities %}
+            
             <div class="gallery-item">
-                {% if activity.image_url %}
-                    <img src="{{ activity.image_url }}" alt="{{ activity.name }}">
-                {% else %}
-                    <div class="placeholder-img">{{ activity.name|slice:":2" }}</div>
-                {% endif %}
+                <a href="https://www.pinterest.com/pin/35606653299726149/" target="_blank">
+                    <img src="https://i.pinimg.com/564x/28/99/3a/28993a4639918f760170020616428d0b.jpg" alt="Water Sports">
+                </a>
                 <div class="overlay">
-                    <h4>{{ activity.name }}</h4>
-                    <p>${{ activity.price }}</p>
+                    <h4>River Kayaking</h4>
+                    <p>Book Now</p>
                 </div>
             </div>
-            {% empty %}
-            <p>No activities found. Please add them in the Admin Panel.</p>
-            {% endfor %}
+
+            <div class="gallery-item">
+                <a href="https://www.pinterest.com/pin/1011339660066185893/" target="_blank">
+                    <img src="https://i.pinimg.com/564x/4a/01/56/4a01569420427301011339660066185893.jpg" alt="Dockside">
+                </a>
+                <div class="overlay">
+                    <h4>Marina Life</h4>
+                    <p>Visit Us</p>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <a href="https://www.pinterest.com/pin/50032245854265086/" target="_blank">
+                    <img src="https://i.pinimg.com/564x/50/03/22/50032245854265086.jpg" alt="Scenic Tour">
+                </a>
+                <div class="overlay">
+                    <h4>Guided Tours</h4>
+                    <p>$50 / person</p>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <a href="https://www.pinterest.com/pin/678636237640439590/" target="_blank">
+                    <img src="https://i.pinimg.com/564x/67/86/36/678636237640439590.jpg" alt="Equipment">
+                </a>
+                <div class="overlay">
+                    <h4>Equipment Rental</h4>
+                    <p>Full Day / Half Day</p>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <a href="https://www.pinterest.com/pin/116249234130017624/" target="_blank">
+                    <img src="https://i.pinimg.com/564x/11/62/49/116249234130017624.jpg" alt="Adventure">
+                </a>
+                <div class="overlay">
+                    <h4>Family Fun</h4>
+                    <p>All Ages</p>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <a href="https://www.pinterest.com/pin/307511480823438540/" target="_blank">
+                    <img src="https://i.pinimg.com/564x/30/75/11/307511480823438540.jpg" alt="Sunset">
+                </a>
+                <div class="overlay">
+                    <h4>Sunset Cruises</h4>
+                    <p>Evening Special</p>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
@@ -79,7 +125,7 @@
         height: 80vh;
         display: flex;
         align-items: center;
-        justify_content: center;
+        justify-content: center;
         text-align: center;
         color: white;
     }
@@ -97,6 +143,7 @@
         font-weight: bold;
         border-radius: 30px;
         transition: 0.3s;
+        text-decoration: none;
     }
     .btn-transparent:hover {
         background: white;
@@ -112,6 +159,7 @@
         font-weight: bold;
         border-radius: 30px;
         transition: 0.3s;
+        text-decoration: none;
     }
     .btn-solid:hover {
         background: #333;
@@ -130,11 +178,12 @@
     .card:hover { transform: translateY(-10px); }
     .text-link { color: #FFB347; font-weight: bold; text-decoration: none; }
 
-    /* Gallery */
+    /* Gallery - NOW FIXED FOR PINTEREST */
     .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 15px; }
     .gallery-item { height: 250px; position: relative; overflow: hidden; border-radius: 10px; background: #ddd; }
+    
+    /* This forces the Pinterest images to fit the box perfectly */
     .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
-    .placeholder-img { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 3rem; color: white; background: #FFB347; }
     
     .gallery-item:hover img { transform: scale(1.1); }
     .overlay {
@@ -158,6 +207,7 @@
         box-shadow: 0 5px 20px rgba(0,0,0,0.2);
         cursor: pointer;
         animation: bounce 2s infinite;
+        z-index: 1000;
     }
     @keyframes bounce {
         0%, 100% { transform: translateY(0); }
