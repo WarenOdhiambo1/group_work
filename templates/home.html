@@ -40,8 +40,8 @@
         <div class="gallery-grid">
             {% for activity in activities %}
             <div class="gallery-item">
-                {% if activity.image %}
-                    <img src="{{ activity.image.url }}" alt="{{ activity.name }}">
+                {% if activity.image_url %}
+                    <img src="{{ activity.image_url }}" alt="{{ activity.name }}">
                 {% else %}
                     <div class="placeholder-img">{{ activity.name|slice:":2" }}</div>
                 {% endif %}
