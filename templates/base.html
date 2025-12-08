@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Backyard Adventures</title>
+    <style>
+        :root {
+            --primary: #FFB347; /* Light Orange */
+            --dark: #333;
+            --light: #fff;
+        }
+        body { margin: 0; font-family: sans-serif; background-color: #FFFAF0; }
+        
+        /* Navbar */
+        nav { background: var(--primary); padding: 1rem; display: flex; justify-content: space-between; }
+        nav a { color: var(--dark); text-decoration: none; font-weight: bold; margin: 0 1rem; }
+        
+        /* Transparent Button with Hover */
+        .btn {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Gallery Grid */
+        .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; padding: 20px; }
+        .card { background: white; border: 1px solid #ddd; padding: 10px; }
+    </style>
+</head>
+<body>
+    <nav>
+        <div>BACKYARD ADVENTURES</div>
+        <div>
+            <a href="/">Home</a>
+            <a href="/dashboard">Manager Dashboard</a>
+            <a href="/admin">Admin Panel</a>
+        </div>
+    </nav>
+    
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
