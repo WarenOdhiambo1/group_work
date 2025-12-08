@@ -23,17 +23,14 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
-from django.views.generic import RedirectView
-from core.views import create_admin  # <--- IMPORT THE NEW VIEW
+from core.views import create_admin, home # <--- Import home
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('analytics/', include('analytics.urls')),
     path('dashboard/', include('analytics.urls')),
+    path('make-admin/', create_admin),
     
-    # The Magic Link
-    path('make-admin/', create_admin), # <--- ADD THIS
-    
-    path('', RedirectView.as_view(url='dashboard/', permanent=False)),
+    # THE NEW HOMEPAGE
+    path('', home, name='home'), # <--- Use the view, NOT the RedirectView
 ]
-
