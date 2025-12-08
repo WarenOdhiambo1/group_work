@@ -23,16 +23,17 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
-from django.views.generic import RedirectView # Import this tool
+from django.views.generic import RedirectView
+from core.views import create_admin  # <--- IMPORT THE NEW VIEW
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('analytics/', include('analytics.urls')),
+    path('dashboard/', include('analytics.urls')),
     
-    # 1. The Analytics App (Handles /dashboard/)
-    path('', include('analytics.urls')), 
+    # The Magic Link
+    path('make-admin/', create_admin), # <--- ADD THIS
     
-    # 2. THE FIX: Redirect the empty path '' to 'dashboard/'
-    # This says: "If they hit the empty root, send them to the dashboard."
     path('', RedirectView.as_view(url='dashboard/', permanent=False)),
 ]
 
