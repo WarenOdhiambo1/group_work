@@ -17,8 +17,7 @@ class BookingForm(forms.ModelForm):
             'notes': forms.Textarea(attrs={'class': 'form-control', 'rows': 3, 'placeholder': 'Special requests or notes...'}),
         }
 
-    # Case Study Requirement: Validation is automatic because we defined .clean() in the Model earlier!
-    # Django Forms will run that logic and show an error if there is a conflict.
+   
 
 class InquiryForm(forms.ModelForm):
     class Meta:

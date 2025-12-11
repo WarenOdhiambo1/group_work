@@ -67,6 +67,31 @@ def melissa_dashboard(request):
 
 @login_required
 @user_passes_test(is_melissa)
+def customer_care(request):
+    # Customer care center with categorized handling
+    from datetime import datetime, timedelta
+    
+    # Categorize inquiries by urgency (created in last 2 hours = urgent)
+    urgent_cutoff = datetime.now() - timedelta(hours=2)
+    urgent_inquiries = Inquiry.objects.filter(status='NEW', created_at__gte=urgent_cutoff)
+    regular_inquiries = Inquiry.objects.filter(status='NEW', created_at__lt=urgent_cutoff)
+    
+    # Booking conflicts (multiple bookings same day)
+    conflict_bookings = Booking.objects.filter(is_confirmed=False)
+    
+    # Pending payments
+    pending_payments = Payment.objects.filter(status='PENDING')[:10]
+    
+    context = {
+        'urgent_inquiries': urgent_inquiries,
+        'regular_inquiries': regular_inquiries,
+        'conflict_bookings': conflict_bookings,
+        'pending_payments': pending_payments,
+    }
+    return render(request, 'management/customer_care.html', context)
+
+@login_required
+@user_passes_test(is_melissa)
 def update_payment_status(request, payment_id):
     payment = get_object_or_404(Payment, id=payment_id)
     if request.method == 'POST':
