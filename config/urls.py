@@ -27,12 +27,9 @@ from core.views import create_admin, home # <--- Import home
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('analytics/', include('analytics.urls')),
-    path('dashboard/', include('analytics.urls')),
+    path('accounts/', include('accounts.urls')),
+    path('management/', include('management.urls')),
     path('make-admin/', create_admin),
-    
-    # ADD THIS LINE to connect the Operations app
     path('operations/', include('operations.urls')),
-    
     path('', home, name='home'),
 ]

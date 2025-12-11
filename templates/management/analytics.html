@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container section">
+    <div class="analytics-header">
+        <h1>Business Analytics</h1>
+        <a href="{% url 'manager_dashboard' %}" class="btn btn-outline">← Back to Dashboard</a>
+    </div>
+
+    <div class="analytics-grid">
+        {% if charts.revenue %}
+        <div class="chart-card">
+            <h3>Revenue Over Time</h3>
+            <img src="data:image/png;base64,{{ charts.revenue }}" alt="Revenue Chart">
+        </div>
+        {% endif %}
+
+        {% if charts.activities %}
+        <div class="chart-card">
+            <h3>Most Popular Activities</h3>
+            <img src="data:image/png;base64,{{ charts.activities }}" alt="Activities Chart">
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<style>
+.analytics-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+.analytics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); gap: 2rem; }
+.chart-card { background: white; padding: 1.5rem; border-radius: 10px; box-shadow: 0 3px 10px var(--shadow); text-align: center; }
+.chart-card img { max-width: 100%; height: auto; }
+</style>
+{% endblock %}

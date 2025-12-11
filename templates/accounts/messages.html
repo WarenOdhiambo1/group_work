@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container section">
+    <div class="messages-container">
+        <div class="messages-header">
+            <h2>My Messages</h2>
+            <a href="{% url 'client_dashboard' %}" class="btn btn-outline">← Back to Dashboard</a>
+        </div>
+        
+        <div class="messages-list">
+            {% if messages %}
+                {% for message in messages %}
+                <div class="message-card {% if not message.is_read %}unread{% endif %}">
+                    <div class="message-header">
+                        <h3>{{ message.subject }}</h3>
+                        <div class="message-meta">
+                            <span class="sender">From: {{ message.sender.get_full_name }}</span>
+                            <span class="date">{{ message.created_at|date:"M d, Y g:i A" }}</span>
+                        </div>
+                    </div>
+                    <div class="message-content">
+                        {{ message.content|linebreaks }}
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="empty-messages">
+                    <div class="empty-icon">📬</div>
+                    <h3>No Messages</h3>
+                    <p>You don't have any messages yet. Melissa will send you updates about your bookings here.</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<style>
+.messages-container { max-width: 800px; margin: 0 auto; }
+.messages-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+.message-card { background: white; padding: 1.5rem; border-radius: 15px; box-shadow: 0 5px 20px var(--shadow); margin-bottom: 1rem; }
+.message-card.unread { border-left: 4px solid var(--primary-green); background: var(--accent-green); }
+.message-header { margin-bottom: 1rem; }
+.message-header h3 { color: var(--text-dark); margin-bottom: 0.5rem; }
+.message-meta { display: flex; justify-content: space-between; font-size: 0.9rem; color: var(--text-light); }
+.message-content { color: var(--text-dark); line-height: 1.6; }
+.empty-messages { text-align: center; padding: 3rem; }
+.empty-icon { font-size: 4rem; margin-bottom: 1rem; }
+.empty-messages h3 { color: var(--text-dark); margin-bottom: 0.5rem; }
+.empty-messages p { color: var(--text-light); }
+</style>
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container section">
+    <div class="auth-container">
+        <div class="auth-card">
+            <h2>Join Backyard Adventures</h2>
+            <p>Create your account to book activities and track your adventures</p>
+            
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>First Name</label>
+                        {{ form.first_name }}
+                    </div>
+                    <div class="form-group">
+                        <label>Last Name</label>
+                        {{ form.last_name }}
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Username</label>
+                    {{ form.username }}
+                </div>
+                
+                <div class="form-group">
+                    <label>Email</label>
+                    {{ form.email }}
+                </div>
+                
+                <div class="form-group">
+                    <label>Phone (Optional)</label>
+                    {{ form.phone }}
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Password</label>
+                        {{ form.password1 }}
+                    </div>
+                    <div class="form-group">
+                        <label>Confirm Password</label>
+                        {{ form.password2 }}
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary btn-full">Create Account</button>
+            </form>
+            
+            <div class="auth-links">
+                <p>Already have an account? <a href="{% url 'login' %}">Sign In</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.auth-container { max-width: 500px; margin: 0 auto; }
+.auth-card { background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 5px 20px var(--shadow); }
+.auth-card h2 { text-align: center; color: var(--text-dark); margin-bottom: 0.5rem; }
+.auth-card p { text-align: center; color: var(--text-light); margin-bottom: 2rem; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.form-group { margin-bottom: 1rem; }
+.form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-dark); }
+.form-group input { width: 100%; padding: 0.7rem; border: 2px solid var(--accent-green); border-radius: 8px; font-family: 'Nunito', sans-serif; }
+.form-group input:focus { outline: none; border-color: var(--primary-green); }
+.btn-full { width: 100%; margin-top: 1rem; }
+.auth-links { text-align: center; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--accent-green); }
+.auth-links a { color: var(--primary-green); text-decoration: none; font-weight: 600; }
+</style>
+{% endblock %}

@@ -1,0 +1,47 @@
+/* Gallery Image Loading Styles */
+.gallery-item img {
+    transition: opacity 0.3s ease;
+}
+
+.gallery-item img[src*="placeholder"] {
+    background: linear-gradient(135deg, #7EC850 0%, #5BA032 100%);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+}
+
+/* Loading state for images */
+.gallery-item {
+    position: relative;
+}
+
+.gallery-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, #7EC850 0%, #5BA032 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+}
+
+.gallery-item.loading::before {
+    opacity: 1;
+    content: 'Loading...';
+    color: white;
+    font-weight: 600;
+}
+
+/* Ensure images are above the loading state */
+.gallery-item img {
+    position: relative;
+    z-index: 2;
+}

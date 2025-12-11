@@ -59,53 +59,15 @@
         <p class="section-subtitle">See what makes our adventures unforgettable</p>
         
         <div class="pinterest-gallery">
-            <a href="https://www.pinterest.com/pin/35606653299726149/" target="_blank" rel="noopener" class="gallery-item">
-                <img src="https://i.pinimg.com/564x/28/99/3a/28993a4639918f760170020616428d0b.jpg" alt="River Kayaking Adventure">
+            {% for item in gallery_items %}
+            <a href="{{ item.url }}" target="_blank" rel="noopener" class="gallery-item">
+                <img src="{{ item.image_url }}" alt="{{ item.title }}">
                 <div class="gallery-overlay">
-                    <h4>River Kayaking</h4>
+                    <h4>{{ item.title }}</h4>
                     <span class="view-pin">View on Pinterest →</span>
                 </div>
             </a>
-            
-            <a href="https://www.pinterest.com/pin/1011339660066185893/" target="_blank" rel="noopener" class="gallery-item">
-                <img src="https://i.pinimg.com/564x/4a/01/56/4a0156/4a0156.jpg" alt="Marina Dockside">
-                <div class="gallery-overlay">
-                    <h4>Marina Life</h4>
-                    <span class="view-pin">View on Pinterest →</span>
-                </div>
-            </a>
-            
-            <a href="https://www.pinterest.com/pin/50032245854265086/" target="_blank" rel="noopener" class="gallery-item">
-                <img src="https://i.pinimg.com/564x/50/03/22/500322/500322.jpg" alt="Scenic Guided Tours">
-                <div class="gallery-overlay">
-                    <h4>Guided Tours</h4>
-                    <span class="view-pin">View on Pinterest →</span>
-                </div>
-            </a>
-            
-            <a href="https://www.pinterest.com/pin/678636237640439590/" target="_blank" rel="noopener" class="gallery-item">
-                <img src="https://i.pinimg.com/564x/67/86/36/678636/678636.jpg" alt="Equipment Rental">
-                <div class="gallery-overlay">
-                    <h4>Premium Equipment</h4>
-                    <span class="view-pin">View on Pinterest →</span>
-                </div>
-            </a>
-            
-            <a href="https://www.pinterest.com/pin/116249234130017624/" target="_blank" rel="noopener" class="gallery-item">
-                <img src="https://i.pinimg.com/564x/11/62/49/116249/116249.jpg" alt="Family Adventures">
-                <div class="gallery-overlay">
-                    <h4>Family Fun</h4>
-                    <span class="view-pin">View on Pinterest →</span>
-                </div>
-            </a>
-            
-            <a href="https://www.pinterest.com/pin/307511480823438540/" target="_blank" rel="noopener" class="gallery-item">
-                <img src="https://i.pinimg.com/564x/30/75/11/307511/307511.jpg" alt="Sunset Cruises">
-                <div class="gallery-overlay">
-                    <h4>Sunset Cruises</h4>
-                    <span class="view-pin">View on Pinterest →</span>
-                </div>
-            </a>
+            {% endfor %}
         </div>
     </div>
 </div>
@@ -291,16 +253,16 @@
     
     .pinterest-gallery {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-        gap: 1.5rem;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 1rem;
     }
     
     .gallery-item {
         position: relative;
-        height: 320px;
+        height: 200px;
         overflow: hidden;
-        border-radius: 15px;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        border-radius: 10px;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.1);
         display: block;
         text-decoration: none;
         background: white;
@@ -362,12 +324,12 @@
         }
         
         .pinterest-gallery {
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 1rem;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.8rem;
         }
         
         .gallery-item {
-            height: 280px;
+            height: 150px;
         }
     }
 </style>

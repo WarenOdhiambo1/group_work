@@ -271,6 +271,20 @@
             font-size: 0.8rem;
         }
         
+        /* Gallery Image Loading Styles */
+        .gallery-item img {
+            transition: opacity 0.3s ease;
+        }
+        
+        .gallery-item img[src*="placeholder"] {
+            background: linear-gradient(135deg, #7EC850 0%, #5BA032 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+        
         /* RESPONSIVE */
         @media (max-width: 768px) {
             body {
@@ -305,8 +319,25 @@
                 <a href="/operations/activities/">Activities</a>
                 <a href="/operations/book/">Book Now</a>
                 <a href="/operations/contact/">Contact</a>
-                <a href="/dashboard/">Dashboard</a>
-                <a href="/admin/" class="btn btn-primary" style="padding: 0.5rem 1.2rem; font-size: 0.85rem;">Admin</a>
+                {% if user.is_authenticated %}
+                    {% if user.is_staff %}
+                        {% if user.staff_profile.role == 'MANAGER' %}
+                            <a href="{% url 'manager_dashboard' %}">Manager</a>
+                        {% elif user.staff_profile.role == 'RECEPTIONIST' %}
+                            <a href="{% url 'melissa_dashboard' %}">Customer Service</a>
+                        {% endif %}
+                        <a href="/admin/" class="btn btn-primary" style="padding: 0.5rem 1.2rem; font-size: 0.85rem;">Admin</a>
+                    {% else %}
+                        <a href="{% url 'client_dashboard' %}">My Account</a>
+                    {% endif %}
+                    <form method="post" action="{% url 'logout' %}" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" style="background: none; border: none; color: var(--text-dark); font: inherit; cursor: pointer; text-decoration: none; font-weight: 600; font-size: 0.9rem;">Logout</button>
+                    </form>
+                {% else %}
+                    <a href="{% url 'login' %}">Login</a>
+                    <a href="{% url 'register' %}" class="btn btn-primary" style="padding: 0.5rem 1.2rem; font-size: 0.85rem;">Sign Up</a>
+                {% endif %}
             </div>
         </div>
     </nav>
