@@ -2,9 +2,26 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.contrib.auth.views import LoginView
 from .forms import ClientRegistrationForm, ProfileUpdateForm
 from .models import Payment, Message
 from operations.models import Booking
+
+class CustomLoginView(LoginView):
+    template_name = 'accounts/login.html'
+    
+    def get_success_url(self):
+        user = self.request.user
+        if user.is_staff:
+            try:
+                if user.staff_profile.role == 'MANAGER':
+                    return '/management/manager/'
+                elif user.staff_profile.role == 'RECEPTIONIST':
+                    return '/management/melissa/'
+            except:
+                pass
+            return '/admin/'
+        return '/accounts/dashboard/'
 
 def register(request):
     if request.method == 'POST':
@@ -20,6 +37,10 @@ def register(request):
 
 @login_required
 def client_dashboard(request):
+    # Redirect all staff users to admin
+    if request.user.is_staff:
+        return redirect('/admin/')
+    
     bookings = Booking.objects.filter(customer_email=request.user.email).order_by('-created_at')
     payments = Payment.objects.filter(booking__customer_email=request.user.email).order_by('-created_at')
     all_messages = Message.objects.filter(recipient=request.user)
@@ -35,6 +56,10 @@ def client_dashboard(request):
 
 @login_required
 def profile(request):
+    # Redirect all staff users to admin
+    if request.user.is_staff:
+        return redirect('/admin/')
+        
     try:
         profile = request.user.clientprofile
     except:
@@ -57,6 +82,10 @@ def profile(request):
 
 @login_required
 def messages_view(request):
+    # Redirect all staff users to admin
+    if request.user.is_staff:
+        return redirect('/admin/')
+        
     user_messages = Message.objects.filter(recipient=request.user)
     Message.objects.filter(recipient=request.user, is_read=False).update(is_read=True)
     return render(request, 'accounts/messages.html', {'messages': user_messages})

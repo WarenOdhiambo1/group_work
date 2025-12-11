@@ -49,6 +49,18 @@
             </div>
             {% endfor %}
         </div>
+        
+        <div class="dashboard-card">
+            <h3>All Clients</h3>
+            {% for client in all_clients %}
+            <div class="item">
+                <strong>{{ client.user.get_full_name|default:client.user.username }}</strong>
+                <span class="date">{{ client.user.email }}</span>
+            </div>
+            {% empty %}
+            <p>No clients registered yet.</p>
+            {% endfor %}
+        </div>
     </div>
 </div>
 

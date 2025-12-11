@@ -22,7 +22,7 @@ def is_melissa(user):
 @user_passes_test(is_manager)
 def manager_dashboard(request):
     # Get analytics data
-    total_clients = ClientProfile.objects.count()
+    total_clients = ClientProfile.objects.filter(user__is_staff=False).count()
     total_bookings = Booking.objects.count()
     confirmed_bookings = Booking.objects.filter(is_confirmed=True).count()
     total_revenue = Payment.objects.filter(status='PAID').aggregate(Sum('amount'))['amount__sum'] or 0
@@ -30,6 +30,7 @@ def manager_dashboard(request):
     # Recent activity
     recent_bookings = Booking.objects.order_by('-created_at')[:10]
     recent_payments = Payment.objects.order_by('-created_at')[:10]
+    all_clients = ClientProfile.objects.filter(user__is_staff=False)[:10]
     
     context = {
         'total_clients': total_clients,
@@ -38,6 +39,7 @@ def manager_dashboard(request):
         'total_revenue': total_revenue,
         'recent_bookings': recent_bookings,
         'recent_payments': recent_payments,
+        'all_clients': all_clients,
     }
     return render(request, 'management/manager_dashboard.html', context)
 
