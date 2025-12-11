@@ -1,68 +1,342 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container" style="max-width: 600px; padding: 50px 20px;">
-    
-    <div class="card" style="padding: 40px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
-        <h2 style="text-align: center; color: #FFB347; margin-bottom: 20px;">Book Your Adventure</h2>
-        <p style="text-align: center; color: #666; margin-bottom: 30px;">
-            Secure your spot for a tour or equipment rental.
-        </p>
 
-        {% if messages %}
-            {% for message in messages %}
-                <div style="padding: 15px; margin-bottom: 20px; border-radius: 5px; 
-                            background: {% if message.tags == 'success' %}#d4edda{% else %}#f8d7da{% endif %}; 
-                            color: {% if message.tags == 'success' %}#155724{% else %}#721c24{% endif %};">
-                    {{ message }}
-                </div>
-            {% endfor %}
-        {% endif %}
+<div class="booking-hero">
+    <div class="container">
+        <h1>Book Your Adventure</h1>
+        <p>Reserve your spot for an unforgettable water sports experience</p>
+    </div>
+</div>
 
-        <form method="post">
-            {% csrf_token %}
+<div class="container section">
+    <div class="booking-wrapper">
+        <!-- Booking Form -->
+        <div class="booking-form-section">
+            <h2>Reservation Details</h2>
+            <p class="form-subtitle">Fill out the form below and we'll confirm your booking shortly</p>
             
-            <div style="margin-bottom: 20px;">
-                <label style="font-weight: bold; display: block; margin-bottom: 5px;">Full Name</label>
-                {{ form.customer_name }}
-            </div>
-
-            <div style="margin-bottom: 20px;">
-                <label style="font-weight: bold; display: block; margin-bottom: 5px;">Email Address</label>
-                {{ form.customer_email }}
-            </div>
-
-            <div style="margin-bottom: 20px;">
-                <label style="font-weight: bold; display: block; margin-bottom: 5px;">Select Activity</label>
-                {{ form.activity }}
-            </div>
-
-            <div style="margin-bottom: 20px;">
-                <label style="font-weight: bold; display: block; margin-bottom: 5px;">Date</label>
-                {{ form.date }}
-            </div>
-
-            {% if form.errors %}
-                <div style="color: red; margin-bottom: 20px;">
-                    {{ form.non_field_errors }}
+            <form method="POST" class="modern-form">
+                {% csrf_token %}
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="{{ form.customer_name.id_for_label }}">Full Name *</label>
+                        {{ form.customer_name }}
+                        {% if form.customer_name.errors %}
+                            <div class="error-message">{{ form.customer_name.errors }}</div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="{{ form.customer_email.id_for_label }}">Email Address *</label>
+                        {{ form.customer_email }}
+                        {% if form.customer_email.errors %}
+                            <div class="error-message">{{ form.customer_email.errors }}</div>
+                        {% endif %}
+                    </div>
                 </div>
-            {% endif %}
-
-            <button type="submit" class="btn btn-solid" style="width: 100%; background: #FFB347; border: none;">
-                Confirm Registration
-            </button>
-        </form>
+                
+                <div class="form-group">
+                    <label for="{{ form.customer_phone.id_for_label }}">Phone Number</label>
+                    {{ form.customer_phone }}
+                    {% if form.customer_phone.errors %}
+                        <div class="error-message">{{ form.customer_phone.errors }}</div>
+                    {% endif %}
+                </div>
+                
+                <div class="form-group">
+                    <label for="{{ form.activity.id_for_label }}">Select Activity *</label>
+                    {{ form.activity }}
+                    {% if form.activity.errors %}
+                        <div class="error-message">{{ form.activity.errors }}</div>
+                    {% endif %}
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="{{ form.date.id_for_label }}">Preferred Date *</label>
+                        {{ form.date }}
+                        {% if form.date.errors %}
+                            <div class="error-message">{{ form.date.errors }}</div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="{{ form.time.id_for_label }}">Preferred Time</label>
+                        {{ form.time }}
+                        {% if form.time.errors %}
+                            <div class="error-message">{{ form.time.errors }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="{{ form.guests.id_for_label }}">Number of Guests *</label>
+                    {{ form.guests }}
+                    {% if form.guests.errors %}
+                        <div class="error-message">{{ form.guests.errors }}</div>
+                    {% endif %}
+                </div>
+                
+                <div class="form-group">
+                    <label for="{{ form.notes.id_for_label }}">Special Requests / Notes</label>
+                    {{ form.notes }}
+                    {% if form.notes.errors %}
+                        <div class="error-message">{{ form.notes.errors }}</div>
+                    {% endif %}
+                </div>
+                
+                <div class="info-note">
+                    <strong>📋 Note:</strong> Your booking will be confirmed within 24 hours. We'll contact you via email or phone with confirmation details.
+                </div>
+                
+                <button type="submit" class="btn btn-primary btn-block">
+                    <span>Complete Booking</span>
+                    <span>→</span>
+                </button>
+            </form>
+        </div>
+        
+        <!-- Booking Info Sidebar -->
+        <div class="booking-info-section">
+            <div class="info-card">
+                <h3>💡 Booking Information</h3>
+                
+                <div class="info-item">
+                    <h4>How It Works</h4>
+                    <ol>
+                        <li>Fill out the booking form</li>
+                        <li>Receive confirmation within 24 hours</li>
+                        <li>Arrive 15 minutes early on your booking day</li>
+                        <li>Enjoy your adventure!</li>
+                    </ol>
+                </div>
+                
+                <div class="info-item">
+                    <h4>What to Bring</h4>
+                    <ul>
+                        <li>Valid ID</li>
+                        <li>Swimwear & towel</li>
+                        <li>Sunscreen & sunglasses</li>
+                        <li>Water bottle</li>
+                        <li>Camera (waterproof recommended)</li>
+                    </ul>
+                </div>
+                
+                <div class="info-item">
+                    <h4>Cancellation Policy</h4>
+                    <p>Free cancellation up to 48 hours before your scheduled activity. Cancellations within 48 hours are subject to a 50% fee.</p>
+                </div>
+            </div>
+            
+            <div class="help-card">
+                <h4>Need Help?</h4>
+                <p>Have questions about your booking?</p>
+                <a href="/operations/contact/" class="btn btn-outline btn-small">Contact Us</a>
+            </div>
+        </div>
     </div>
 </div>
 
 <style>
-    /* Styling for the Django Form inputs */
-    .form-control {
+    .booking-hero {
+        background: linear-gradient(135deg, #7EC850 0%, #5BA032 100%);
+        color: white;
+        padding: 4rem 2rem;
+        text-align: center;
+    }
+    
+    .booking-hero h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+    }
+    
+    .booking-hero p {
+        font-size: 1.1rem;
+        max-width: 600px;
+        margin: 0 auto;
+        opacity: 0.95;
+    }
+    
+    .booking-wrapper {
+        display: grid;
+        grid-template-columns: 1.5fr 1fr;
+        gap: 3rem;
+        margin-top: 2rem;
+    }
+    
+    /* FORM STYLES */
+    .booking-form-section h2 {
+        font-size: 1.8rem;
+        color: var(--text-dark);
+        margin-bottom: 0.5rem;
+    }
+    
+    .form-subtitle {
+        color: var(--text-light);
+        margin-bottom: 2rem;
+        font-size: 0.95rem;
+    }
+    
+    .modern-form {
+        background: white;
+        padding: 2rem;
+        border-radius: 15px;
+        box-shadow: 0 5px 20px var(--shadow);
+    }
+    
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+    
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+    
+    .form-group label {
+        display: block;
+        font-weight: 600;
+        color: var(--text-dark);
+        margin-bottom: 0.5rem;
+        font-size: 0.9rem;
+    }
+    
+    .error-message {
+        color: #dc3545;
+        font-size: 0.8rem;
+        margin-top: 0.3rem;
+    }
+    
+    .info-note {
+        background: #FFF3CD;
+        border-left: 4px solid #FFC107;
+        padding: 1rem;
+        margin-bottom: 1.5rem;
+        border-radius: 5px;
+        font-size: 0.9rem;
+        color: #856404;
+    }
+    
+    .btn-block {
         width: 100%;
-        padding: 12px;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        box-sizing: border-box; /* Fix padding issue */
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 1rem;
+    }
+    
+    /* SIDEBAR INFO */
+    .booking-info-section {
+        position: sticky;
+        top: 100px;
+        align-self: start;
+    }
+    
+    .info-card {
+        background: white;
+        padding: 2rem;
+        border-radius: 15px;
+        box-shadow: 0 5px 20px var(--shadow);
+        margin-bottom: 1.5rem;
+    }
+    
+    .info-card h3 {
+        font-size: 1.3rem;
+        color: var(--text-dark);
+        margin-bottom: 1.5rem;
+        border-bottom: 2px solid var(--accent-green);
+        padding-bottom: 0.8rem;
+    }
+    
+    .info-item {
+        margin-bottom: 1.5rem;
+    }
+    
+    .info-item:last-child {
+        margin-bottom: 0;
+    }
+    
+    .info-item h4 {
+        font-size: 1rem;
+        color: var(--text-dark);
+        margin-bottom: 0.8rem;
+        font-weight: 600;
+    }
+    
+    .info-item ol,
+    .info-item ul {
+        margin-left: 1.2rem;
+        color: var(--text-light);
+        font-size: 0.9rem;
+    }
+    
+    .info-item li {
+        margin-bottom: 0.5rem;
+        line-height: 1.5;
+    }
+    
+    .info-item p {
+        color: var(--text-light);
+        font-size: 0.9rem;
+        line-height: 1.6;
+    }
+    
+    .help-card {
+        background: var(--accent-green);
+        padding: 1.5rem;
+        border-radius: 15px;
+        text-align: center;
+        border-left: 4px solid var(--primary-green);
+    }
+    
+    .help-card h4 {
+        font-size: 1.1rem;
+        color: var(--text-dark);
+        margin-bottom: 0.5rem;
+    }
+    
+    .help-card p {
+        color: var(--text-light);
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+    }
+    
+    .btn-small {
+        padding: 0.6rem 1.5rem;
+        font-size: 0.85rem;
+    }
+    
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+        .booking-hero h1 {
+            font-size: 2rem;
+        }
+        
+        .booking-wrapper {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+        
+        .form-row {
+            grid-template-columns: 1fr;
+        }
+        
+        .modern-form {
+            padding: 1.5rem;
+        }
+        
+        .booking-info-section {
+            position: static;
+        }
+        
+        .info-card {
+            padding: 1.5rem;
+        }
     }
 </style>
+
 {% endblock %}

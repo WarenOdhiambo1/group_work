@@ -1,0 +1,375 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="activities-hero">
+    <div class="container">
+        <h1>Our Activities</h1>
+        <p>Explore our range of water sports and guided tour options</p>
+    </div>
+</div>
+
+<div class="container section">
+    {% if activities %}
+    <div class="activities-grid">
+        {% for activity in activities %}
+        <div class="activity-card">
+            {% if activity.image_url %}
+            <div class="activity-image">
+                <img src="{{ activity.image_url }}" alt="{{ activity.name }}">
+                <div class="activity-type-badge">{{ activity.get_type_display }}</div>
+            </div>
+            {% else %}
+            <div class="activity-image no-image">
+                <div class="no-image-placeholder">
+                    {% if activity.type == 'TOUR' %}🌲{% else %}🛶{% endif %}
+                </div>
+                <div class="activity-type-badge">{{ activity.get_type_display }}</div>
+            </div>
+            {% endif %}
+            
+            <div class="activity-content">
+                <h3>{{ activity.name }}</h3>
+                <p class="activity-description">{{ activity.description }}</p>
+                <div class="activity-footer">
+                    <div class="activity-price">
+                        ${{ activity.price }}
+                        <span>per person</span>
+                    </div>
+                    <a href="/operations/book/" class="btn btn-primary btn-sm">Book Now</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state">
+        <div class="empty-icon">🏖️</div>
+        <h2>No Activities Available</h2>
+        <p>Check back soon for exciting water sports adventures!</p>
+        <a href="/operations/contact/" class="btn btn-primary">Contact Us for Info</a>
+    </div>
+    {% endif %}
+</div>
+
+<!-- Pinterest Gallery Section -->
+<div class="pinterest-gallery-section">
+    <div class="container">
+        <h2 class="section-title">Gallery Highlights</h2>
+        <p class="section-subtitle">See what makes our adventures unforgettable</p>
+        
+        <div class="pinterest-gallery">
+            <a href="https://www.pinterest.com/pin/35606653299726149/" target="_blank" rel="noopener" class="gallery-item">
+                <img src="https://i.pinimg.com/564x/28/99/3a/28993a4639918f760170020616428d0b.jpg" alt="River Kayaking Adventure">
+                <div class="gallery-overlay">
+                    <h4>River Kayaking</h4>
+                    <span class="view-pin">View on Pinterest →</span>
+                </div>
+            </a>
+            
+            <a href="https://www.pinterest.com/pin/1011339660066185893/" target="_blank" rel="noopener" class="gallery-item">
+                <img src="https://i.pinimg.com/564x/4a/01/56/4a0156/4a0156.jpg" alt="Marina Dockside">
+                <div class="gallery-overlay">
+                    <h4>Marina Life</h4>
+                    <span class="view-pin">View on Pinterest →</span>
+                </div>
+            </a>
+            
+            <a href="https://www.pinterest.com/pin/50032245854265086/" target="_blank" rel="noopener" class="gallery-item">
+                <img src="https://i.pinimg.com/564x/50/03/22/500322/500322.jpg" alt="Scenic Guided Tours">
+                <div class="gallery-overlay">
+                    <h4>Guided Tours</h4>
+                    <span class="view-pin">View on Pinterest →</span>
+                </div>
+            </a>
+            
+            <a href="https://www.pinterest.com/pin/678636237640439590/" target="_blank" rel="noopener" class="gallery-item">
+                <img src="https://i.pinimg.com/564x/67/86/36/678636/678636.jpg" alt="Equipment Rental">
+                <div class="gallery-overlay">
+                    <h4>Premium Equipment</h4>
+                    <span class="view-pin">View on Pinterest →</span>
+                </div>
+            </a>
+            
+            <a href="https://www.pinterest.com/pin/116249234130017624/" target="_blank" rel="noopener" class="gallery-item">
+                <img src="https://i.pinimg.com/564x/11/62/49/116249/116249.jpg" alt="Family Adventures">
+                <div class="gallery-overlay">
+                    <h4>Family Fun</h4>
+                    <span class="view-pin">View on Pinterest →</span>
+                </div>
+            </a>
+            
+            <a href="https://www.pinterest.com/pin/307511480823438540/" target="_blank" rel="noopener" class="gallery-item">
+                <img src="https://i.pinimg.com/564x/30/75/11/307511/307511.jpg" alt="Sunset Cruises">
+                <div class="gallery-overlay">
+                    <h4>Sunset Cruises</h4>
+                    <span class="view-pin">View on Pinterest →</span>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+    .activities-hero {
+        background: linear-gradient(135deg, #7EC850 0%, #5BA032 100%);
+        color: white;
+        padding: 4rem 2rem;
+        text-align: center;
+    }
+    
+    .activities-hero h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+    }
+    
+    .activities-hero p {
+        font-size: 1.1rem;
+        opacity: 0.95;
+    }
+    
+    /* ACTIVITIES GRID */
+    .activities-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+    }
+    
+    .activity-card {
+        background: white;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 5px 20px var(--shadow);
+        transition: transform 0.3s, box-shadow 0.3s;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .activity-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(126, 200, 80, 0.2);
+    }
+    
+    .activity-image {
+        position: relative;
+        height: 220px;
+        overflow: hidden;
+        background: var(--accent-green);
+    }
+    
+    .activity-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s;
+    }
+    
+    .activity-card:hover .activity-image img {
+        transform: scale(1.1);
+    }
+    
+    .no-image {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .no-image-placeholder {
+        font-size: 5rem;
+    }
+    
+    .activity-type-badge {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: var(--primary-green);
+        color: white;
+        padding: 0.4rem 1rem;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    
+    .activity-content {
+        padding: 1.5rem;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .activity-content h3 {
+        font-size: 1.3rem;
+        color: var(--text-dark);
+        margin-bottom: 0.8rem;
+        font-weight: 700;
+    }
+    
+    .activity-description {
+        color: var(--text-light);
+        font-size: 0.9rem;
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+        flex: 1;
+    }
+    
+    .activity-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 1rem;
+        border-top: 1px solid var(--accent-green);
+    }
+    
+    .activity-price {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--primary-green);
+        display: flex;
+        flex-direction: column;
+        line-height: 1.2;
+    }
+    
+    .activity-price span {
+        font-size: 0.75rem;
+        font-weight: 400;
+        color: var(--text-light);
+    }
+    
+    .btn-sm {
+        padding: 0.6rem 1.3rem;
+        font-size: 0.85rem;
+    }
+    
+    /* EMPTY STATE */
+    .empty-state {
+        text-align: center;
+        padding: 4rem 2rem;
+    }
+    
+    .empty-icon {
+        font-size: 5rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .empty-state h2 {
+        font-size: 2rem;
+        color: var(--text-dark);
+        margin-bottom: 1rem;
+    }
+    
+    .empty-state p {
+        color: var(--text-light);
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+    }
+    
+    /* PINTEREST GALLERY SECTION */
+    .pinterest-gallery-section {
+        background: var(--accent-green);
+        padding: 4rem 0;
+        margin-top: 4rem;
+    }
+    
+    .section-title {
+        text-align: center;
+        font-size: 2.2rem;
+        font-weight: 700;
+        color: var(--text-dark);
+        margin-bottom: 0.5rem;
+    }
+    
+    .section-subtitle {
+        text-align: center;
+        color: var(--text-light);
+        font-size: 1rem;
+        margin-bottom: 2.5rem;
+    }
+    
+    .pinterest-gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1.5rem;
+    }
+    
+    .gallery-item {
+        position: relative;
+        height: 320px;
+        overflow: hidden;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        display: block;
+        text-decoration: none;
+        background: white;
+    }
+    
+    .gallery-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s;
+    }
+    
+    .gallery-item:hover img {
+        transform: scale(1.1);
+    }
+    
+    .gallery-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+        color: white;
+        padding: 2rem 1.5rem 1.5rem;
+        transform: translateY(0);
+        transition: padding 0.3s;
+    }
+    
+    .gallery-item:hover .gallery-overlay {
+        padding-bottom: 2rem;
+    }
+    
+    .gallery-overlay h4 {
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+    }
+    
+    .view-pin {
+        font-size: 0.85rem;
+        opacity: 0.9;
+        display: inline-block;
+        transition: transform 0.3s;
+    }
+    
+    .gallery-item:hover .view-pin {
+        transform: translateX(5px);
+    }
+    
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+        .activities-hero h1 {
+            font-size: 2rem;
+        }
+        
+        .activities-grid {
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+        
+        .pinterest-gallery {
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+        
+        .gallery-item {
+            height: 280px;
+        }
+    }
+</style>
+
+{% endblock %}
