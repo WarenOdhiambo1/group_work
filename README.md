@@ -2,22 +2,13 @@
 
 Modern, responsive booking and inquiry management system for water sports rentals and guided tours in Jacksonville, Florida.
 
-## 🚀 Live Demo
 
-**Public URL**: https://8000-ijyo4tdwoo0lw5v3yzj0m-b237eb32.sandbox.novita.ai
-
-### Quick Access Links
-- 🏠 **Home**: https://8000-ijyo4tdwoo0lw5v3yzj0m-b237eb32.sandbox.novita.ai/
-- 📅 **Book Now**: https://8000-ijyo4tdwoo0lw5v3yzj0m-b237eb32.sandbox.novita.ai/operations/book/
-- 💬 **Contact Us**: https://8000-ijyo4tdwoo0lw5v3yzj0m-b237eb32.sandbox.novita.ai/operations/contact/
-- 🖼️ **Activities Gallery**: https://8000-ijyo4tdwoo0lw5v3yzj0m-b237eb32.sandbox.novita.ai/operations/activities/
-- 🔐 **Admin Panel**: https://8000-ijyo4tdwoo0lw5v3yzj0m-b237eb32.sandbox.novita.ai/admin/
 
 ---
 
 ## ✨ Features
 
-### 🎯 Customer-Facing Features
+ Customer-Facing Features
 - ✅ **Modern UI/UX**: Light-green color scheme, Nunito font, mobile-responsive
 - ✅ **Booking System**: Conflict-free reservations with automatic validation
 - ✅ **Contact/Inquiry Form**: Direct communication with staff (auto-assigned to Melissa)
@@ -25,7 +16,7 @@ Modern, responsive booking and inquiry management system for water sports rental
 - ✅ **Responsive Design**: Perfect on mobile, tablet, and desktop
 - ✅ **Mobile Navigation**: Hamburger menu with smooth transitions
 
-### 🛠️ Admin Features
+ Admin Features
 - ✅ **Activity Management**: Add/edit tours and rentals with pricing
 - ✅ **Booking Dashboard**: View, filter, and confirm reservations
 - ✅ **Inquiry Management**: Track customer inquiries with status updates
@@ -35,7 +26,7 @@ Modern, responsive booking and inquiry management system for water sports rental
 
 ---
 
-## 📋 Business Context
+Business Context
 
 **Company**: Backyard Adventures  
 **Location**: Jacksonville, Florida  
@@ -43,14 +34,14 @@ Modern, responsive booking and inquiry management system for water sports rental
 **Staff**: Melissa Smith (receptionist)  
 
 **Services**:
-- 🛶 Equipment Rentals (kayaks, paddleboards)
-- 🌲 Guided Water Tours
+-  Equipment Rentals (kayaks, paddleboards)
+-  Guided Water Tours
 
 **Problem Solved**: Replaced manual "binder" booking system with digital solution that prevents scheduling conflicts and provides business analytics.
 
 ---
 
-## 🛠️ Technical Stack
+ Technical Stack
 
 - **Backend**: Django 6.0 (Python 3.12+)
 - **Database**: SQLite3 (development), PostgreSQL-ready
@@ -61,7 +52,7 @@ Modern, responsive booking and inquiry management system for water sports rental
 
 ---
 
-## 📦 Installation & Setup
+Installation & Setup
 
 ### Prerequisites
 - Python 3.12+
@@ -90,35 +81,8 @@ python manage.py runserver
 
 ---
 
-## 👥 Creating Staff Users (Melissa Example)
 
-### Via Django Shell
-```bash
-python manage.py shell
-```
 
-```python
-from django.contrib.auth.models import User
-from operations.models import StaffProfile
-
-# Create Melissa's user account
-melissa = User.objects.create_user(
-    username='melissa',
-    email='melissa@backyardadventures.com',
-    first_name='Melissa',
-    last_name='Smith',
-    password='melissa123'  # Change in production
-)
-
-# Create staff profile
-StaffProfile.objects.create(
-    user=melissa,
-    role='RECEPTIONIST',
-    phone='(555) 123-4567',
-    can_receive_inquiries=True,
-    is_active=True
-)
-```
 
 ### Via Admin Panel
 1. Go to `/admin/`
@@ -172,9 +136,9 @@ Staff member roles and permissions
 ```
 
 ### Typography
-- **Font**: Nunito (300, 400, 600, 700, 800 weights)
-- **Base Size**: 14px
-- **Small Fonts**: Used throughout for modern, clean look
+Font**: Nunito (300, 400, 600, 700, 800 weights)
+Base Size**: 14px
+Small Fonts
 
 ### Responsive Breakpoints
 - **Mobile**: 320px - 767px
@@ -218,15 +182,7 @@ Staff member roles and permissions
 
 ## 📸 Pinterest Gallery Integration
 
-### Working Pinterest Links
-All 6 gallery links are functional and open Pinterest in new tab:
 
-1. **River Kayaking**: https://www.pinterest.com/pin/35606653299726149/
-2. **Marina Life**: https://www.pinterest.com/pin/1011339660066185893/
-3. **Guided Tours**: https://www.pinterest.com/pin/50032245854265086/
-4. **Equipment Rental**: https://www.pinterest.com/pin/678636237640439590/
-5. **Family Adventures**: https://www.pinterest.com/pin/116249234130017624/
-6. **Sunset Cruises**: https://www.pinterest.com/pin/307511480823438540/
 
 ### How It Works
 - Pinterest images are loaded via direct image URLs
@@ -259,34 +215,7 @@ All 6 gallery links are functional and open Pinterest in new tab:
 
 ---
 
-## 📁 Project Structure
 
-```
-webapp/
-├── config/                 # Django project settings
-│   ├── settings.py         # Main configuration
-│   ├── urls.py             # URL routing
-│   └── wsgi.py             # WSGI application
-├── operations/             # Core business logic
-│   ├── models.py           # Database models
-│   ├── views.py            # Request handlers
-│   ├── forms.py            # Form definitions
-│   ├── admin.py            # Admin customizations
-│   └── urls.py             # App-specific URLs
-├── templates/              # HTML templates
-│   ├── base.html           # Base layout with nav/footer
-│   ├── home.html           # Landing page
-│   └── operations/         # App-specific templates
-│       ├── book.html       # Booking form
-│       ├── contact.html    # Contact/inquiry form
-│       └── activities.html # Activities gallery
-├── static/                 # Static files (CSS, JS)
-├── db.sqlite3              # SQLite database
-├── manage.py               # Django management script
-├── requirements.txt        # Python dependencies
-├── README.md               # This file
-└── DEVELOPMENT.md          # Comprehensive technical docs
-```
 
 ---
 
@@ -317,18 +246,7 @@ python manage.py migrate
 gunicorn config.wsgi:application --bind 0.0.0.0:8000
 ```
 
----
 
-## 📚 Documentation
-
-For comprehensive technical documentation, see [DEVELOPMENT.md](DEVELOPMENT.md):
-- Detailed model explanations
-- API endpoint documentation
-- Code conventions
-- Testing strategies
-- Architecture diagrams
-
----
 
 ## 🎯 Key Business Benefits
 
@@ -341,11 +259,11 @@ For comprehensive technical documentation, see [DEVELOPMENT.md](DEVELOPMENT.md):
 
 ---
 
-## 🆘 Support
+Support
 
 ### For Admin/Staff
-- **Melissa** (Receptionist): Handles inquiries and bookings
-- **Admin Panel**: `/admin/` for all management tasks
+<!-- - **Melissa** (Receptionist): Handles inquiries and bookings
+- **Admin Panel**: `/admin/` for all management tasks -->
 
 ### For Developers
 - See `DEVELOPMENT.md` for technical details
@@ -357,7 +275,7 @@ For comprehensive technical documentation, see [DEVELOPMENT.md](DEVELOPMENT.md):
 
 ---
 
-## 📝 Recent Updates
+
 
 ### Version 2.0 (Current)
 ✅ Modern light-green UI with Nunito font  
@@ -377,13 +295,9 @@ Proprietary software for Backyard Adventures, Jacksonville, Florida.
 
 ---
 
-## 🙏 Credits
 
-**Development**: Built with Django and modern web technologies  
-**Design**: Custom UI/UX with nature-inspired color palette  
-**Business**: Shawn & Harry Weaver, Backyard Adventures  
 
----
+
 
 **Last Updated**: 2024-12-11  
 **Version**: 2.0  
